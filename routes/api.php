@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AirlenesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TicketsController;
@@ -30,8 +29,6 @@ Route::post('/clients', [ClientController::class, 'store']);
 Route::get('/clients/{id}', [ClientController::class, 'show']);
 Route::put('/clients/{id}', [ClientController::class, 'update']);
 Route::delete('/clients/{id}', [ClientController::class, 'destroy']);
-
-Route::get('/airlenes', [AirlenesController::class, 'index']);
 
 Route::get('/tickets', [TicketsController::class, 'index']);
 Route::post('/tickets', [TicketsController::class, 'store']);
