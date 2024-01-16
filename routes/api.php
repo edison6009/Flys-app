@@ -30,12 +30,6 @@ Route::get('/clients/{id}', [ClientController::class, 'show']);
 Route::put('/clients/{id}', [ClientController::class, 'update']);
 Route::delete('/clients/{id}', [ClientController::class, 'destroy']);
 
-Route::get('/tickets', [TicketsController::class, 'index']);
-Route::post('/tickets', [TicketsController::class, 'store']);
-Route::get('/tickets/{id}', [TicketsController::class, 'show']);
-Route::put('/tickets/{id}', [TicketsController::class, 'update']);
-Route::delete('/tickets/{id}', [TicketsController::class, 'destroy']);
-
 Route::get('/typedocuments', [TypeDocumentController::class,'index']);
 Route::post('/typedocuments', [TypeDocumentController::class,'store']);
 Route::get('/typedocuments/{id}', [TypeDocumentController::class,'index']);
