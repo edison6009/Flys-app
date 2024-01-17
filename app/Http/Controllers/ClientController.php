@@ -29,8 +29,9 @@ class ClientController extends Controller
         $client->last_name = $request->last_name;
         $client->code_phone = $request->code_phone;
         $client->phone = $request->phone;
-        $client->passport = $request->passport;
+        $client->type_document_id = $request->type_document_id;
         $client->birthdate = $request->birthdate;
+        $client->number_document = $request->number_document;
 
         $client->save();
         return 'success';
@@ -56,8 +57,10 @@ class ClientController extends Controller
         $client->last_name = $request->last_name ?? $client->last_name;
         $client->code_phone = $request->code_phone ?? $client->code_phone;
         $client->phone = $request->phone ?? $client->phone;
-        $client->passport = $request->passport ?? $client->passport;
+        $client->type_document_id = $request->type_document_id ?? $client->type_document_id;
         $client->birthdate = $request->birthdate ?? $client->birthdate;
+        $client->number_document = $request->number_document ?? $client->number_document;
+
         $client->save();
         return 'success';
     }
