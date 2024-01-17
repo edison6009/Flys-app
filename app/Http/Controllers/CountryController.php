@@ -14,8 +14,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $country = Country::all();
-        return $country;
+        $countrys = Country::all();
+        return $countrys;
     }
 
     /**
@@ -39,7 +39,8 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        //
+        $country = Country::find($id);
+        return $country;
     }
 
     /**
@@ -47,14 +48,21 @@ class CountryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $country = Country::find($id);
+        $country->name = $request->name ?? $country->name;
+        $country->postal_code = $request->postal_code ?? $country->name;
+
+        $country->save();
+        return 'success';
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Country $country)
+    public function destroy($id)
     {
-        //
+        $country = Country::find($id);
+        $country->delete();
+        return 'delete success';
     }
 }

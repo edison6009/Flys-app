@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CountryController;
-use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\TypeDocumentController;
 use App\Http\Controllers\PlaneController;
-use App\Models\TypeDocument;
+use App\Http\Controllers\TicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +47,13 @@ Route::post('/countries', [CountryController::class,'store']);
 Route::get('/countries/{id}', [CountryController::class,'show']);
 Route::put('/countries/{id}', [CountryController::class,'update']);
 Route::delete('/countries/{id}', [CountryController::class,'destroy']);
+
+Route::get('/tickets', [TicketController::class, 'index']);
+Route::post('/tickets', [TicketController::class, 'store']);
+Route::get('/tickets/{id}', [TicketController::class, 'show']);
+Route::put('/tickets/{id}', [TicketController::class, 'update']);
+Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);
+
 
 
 
