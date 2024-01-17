@@ -24,6 +24,7 @@ class PlaneController extends Controller
     public function store(Request $request)
     {
         $plane = new Plane();
+        $plane->airline_id= $request->airline_id;
         $plane->name = $request->name;
         $plane->passenger_capacity = $request->passenger_capacity;
         $plane->manufacturer = $request->manufacturer;
@@ -49,6 +50,7 @@ class PlaneController extends Controller
     public function update(Request $request, $id)
     {
         $plane = Plane::find($id);
+        $plane->airline_id= $request->airline_id ?? $plane->airline_id;
         $plane->name = $request->name ?? $plane->name;
         $plane->passenger_capacity = $request->passenger_capacity ?? $plane->passenger_capacity;
         $plane->manufacturer = $request->manufacturer ?? $plane->manufacturer;
