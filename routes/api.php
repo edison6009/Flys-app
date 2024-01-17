@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TicketsController;
@@ -48,6 +49,12 @@ Route::post('/countries', [CountryController::class,'store']);
 Route::get('/countries/{id}', [CountryController::class,'show']);
 Route::put('/countries/{id}', [CountryController::class,'update']);
 Route::delete('/countries/{id}', [CountryController::class,'destroy']);
+
+Route::get('/airline', [AirlineController::class,'index']);
+Route::post('/airline', [AirlineController::class, 'store']);
+Route::get('/airline/{id}', [AirlineController::class, 'show']);
+Route::put('/airline/{id}', [AirlineController::class, 'update']);
+Route::delete('/airline/{id}', [AirlineController::class, 'destroy']);
 
 
 
