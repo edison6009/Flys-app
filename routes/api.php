@@ -49,20 +49,17 @@ Route::get('/countries/{id}', [CountryController::class,'show']);
 Route::put('/countries/{id}', [CountryController::class,'update']);
 Route::delete('/countries/{id}', [CountryController::class,'destroy']);
 
-<<<<<<< HEAD
 Route::get('/tickets', [TicketController::class, 'index']);
 Route::post('/tickets', [TicketController::class, 'store']);
 Route::get('/tickets/{id}', [TicketController::class, 'show']);
 Route::put('/tickets/{id}', [TicketController::class, 'update']);
 Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);
 
-=======
 Route::get('/airline', [AirlineController::class,'index']);
 Route::post('/airline', [AirlineController::class, 'store']);
 Route::get('/airline/{id}', [AirlineController::class, 'show']);
 Route::put('/airline/{id}', [AirlineController::class, 'update']);
 Route::delete('/airline/{id}', [AirlineController::class, 'destroy']);
->>>>>>> d97a073890a908eedce379eea6960095a3a3f58c
 
 
 
