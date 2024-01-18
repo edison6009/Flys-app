@@ -12,9 +12,9 @@ class CountryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $countrys = Country::all();
+        $countrys = Country::with('airline','infrastructure')->Filtrar($request)->get();
         return $countrys;
     }
 

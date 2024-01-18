@@ -5,17 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Plane;
 use App\Http\Requests\StorePlaneRequest;
 use App\Http\Requests\UpdatePlaneRequest;
+use App\Services\PokemonService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class PlaneController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $planes = Plane::all();
-        return $planes;
+
+        $planes = Plane::with('airline')->filtrar($request)
+        ->get();
+
+        $pokemonService=new PokemonService();
+        foreach ($planes as $plane) {
+            if($plane->pokemon==null){
+                $plane['pokemon_name']=null;
+            }else{
+$pokemon=$pokemonService->getPokemon($plane->pokemon);
+        $plane['pokemon_name']=$pokemon;
+            }
+
+        }
+
+            return $planes;
     }
 
     /**
@@ -30,6 +47,13 @@ class PlaneController extends Controller
         $plane->manufacturer = $request->manufacturer;
         $plane->type_plane = $request->type_plane;
         $plane->speed = $request->speed;
+        $plane->pokemon = $request->pokemon;
+
+        if ($request->file){
+            $path = Storage::putFile('public', $request->file);
+            $link = env('APP_URL') . Storage::url($path);
+            $plane['url'] = $link;
+        }
 
         $plane->save();
         return 'success';
@@ -41,6 +65,9 @@ class PlaneController extends Controller
     public function show($id)
     {
         $plane = Plane::find($id);
+        $pokemonService=new PokemonService();
+        $pokemon=$pokemonService->getPokemon($plane->pokemon);
+        $plane['pokemon']=$pokemon;
         return $plane;
     }
 
@@ -56,6 +83,7 @@ class PlaneController extends Controller
         $plane->manufacturer = $request->manufacturer ?? $plane->manufacturer;
         $plane->type_plane = $request->type_plane ?? $plane->type_plane;
         $plane->speed = $request->speed ?? $plane->speed;
+        $plane->pokemon = $request->pokemon ?? $plane->pokemon;
 
         $plane->save();
         return 'success';

@@ -12,10 +12,12 @@ class TypeDocumentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $typeDocument = TypeDocument::all();
-        return $typeDocument;
+        $TypeDocuments = TypeDocument::when($request->name, function ($TypeDocumentss, $name) use($request){
+            return $TypeDocumentss->where('name', $request->name);
+            })->get();
+        return $TypeDocuments;
     }
 
     /**

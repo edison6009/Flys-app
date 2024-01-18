@@ -6,16 +6,18 @@ use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::all();
-        return $clients;
+    $Clients = Client::with('typeDocument','ticket', 'incident')->busca($request)
+    ->get();
+        return $Clients;
     }
 
     /**
@@ -32,6 +34,12 @@ class ClientController extends Controller
         $client->type_document_id = $request->type_document_id;
         $client->birthdate = $request->birthdate;
         $client->number_document = $request->number_document;
+
+        if ($request->file){
+            $path = Storage::putFile('public', $request->file);
+            $link = env('APP_URL') . Storage::url($path);
+            $client['url'] = $link;
+        }
 
         $client->save();
         return 'success';
@@ -74,4 +82,24 @@ class ClientController extends Controller
         $client->delete();
         return 'delete success';
     }
+
+    public function restore($id)
+    {
+        $client = client::withTrashed()->find($id);
+        $client->restore();
+        return 'restore success';
+    }
+
+    public function typeClients (Request $request)  {
+
+        $nations = client::where('type_document_id', 2)->busca($request)->count();
+        $totals= client::count();
+        $internationals = $totals-$nations;
+
+        return [
+            "nacionales" => $nations,
+            "internacionales"=> $internationals
+        ];
+    }
+
 }

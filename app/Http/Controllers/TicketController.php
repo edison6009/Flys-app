@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -12,10 +13,11 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::all();
-        return $tickets;
+        $tickets = Ticket::with('client','plane.airline')->filtrar($request)
+        ->get();
+            return $tickets;
     }
 
     /**
@@ -67,6 +69,26 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         $ticket->delete();
         return 'delete success';
+    }
+
+    public function restore($id)
+    {
+        $ticket = Ticket::withTrashed()->find($id);
+        $ticket->restore();
+        return 'success';
+    }
+
+    public function hola()
+    {
+        //dd('hola');
+        return 'hola';
+    }
+
+    public function activeTickets()
+    {
+        $now = Carbon::now()->format('Y-m-d');
+        $tickets = Ticket::where('travel_date',$now)->get();
+        return $tickets;
     }
 
 }

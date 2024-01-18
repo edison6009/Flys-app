@@ -12,10 +12,14 @@ class AirlineController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $airlines = Airline::all();
-        return $airlines;
+    {
+    $Airlines = Airline::with('country', 'plane')->Filtra($request)
+    ->get();
+        return $Airlines;
+    }
+
     }
 
     /**
