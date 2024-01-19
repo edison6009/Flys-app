@@ -27,23 +27,23 @@ class Plane extends Model
     public function scopeFiltrar($query, $request)
 
     {
-        return $query->when($request->airline_id, function ($planes, $airline_id) use($request){
-            return $planes->where('airline_id', $request->airline_id);
+        return $query->when($request->airline_id, function ($planes, $airline_id){
+            return $planes->where('airline_id', $airline_id);
         }
-        )->when($request->name, function ($planes, $name) use($request){
-                return $planes->where('name', $request->name);
+        )->when($request->name, function ($planes, $name){
+                return $planes->where('name', $name);
             }
-        )->when($request->passenger_capacity, function ($planes, $passenger_capacity) use($request){
-                return $planes->where('passenger_capacity', $request->passenger_capacity);
+        )->when($request->passenger_capacity, function ($planes, $passenger_capacity){
+                return $planes->where('passenger_capacity', $passenger_capacity);
             }
-        )->when($request->manufacturer, function ($planes, $manufacturer) use($request){
-                return $planes->where('manufacturer', $request->manufacturer);
+        )->when($request->manufacturer, function ($planes, $manufacturer){
+                return $planes->where('manufacturer', $manufacturer);
         }
-        )->when($request->type_plane, function ($planes, $type_plane) use($request){
-                return $planes->where('type_plane', $request->type_plane);
+        )->when($request->type_plane, function ($planes, $type_plane){
+                return $planes->where('type_plane', $type_plane);
         }
-        )->when($request->speed, function ($planes, $speed) use($request){
-                return $planes->where('speed', $request->speed);
+        )->when($request->speed, function ($planes, $speed){
+                return $planes->where('speed', $speed);
         }
     );
     }
