@@ -19,7 +19,7 @@ class PlaneController extends Controller
     {
 
         $planes = Plane::with('airline')->filtrar($request)
-        ->get();
+        ->paginate(1);
 
         $pokemonService=new PokemonService();
         foreach ($planes as $plane) {
